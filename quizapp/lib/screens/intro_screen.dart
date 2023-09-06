@@ -77,7 +77,7 @@ class IntroScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(13.0)),
                 fixedSize: Size(width * 0.6, height * 0.06),
-                backgroundColor: Color(0xff6949fe),
+                backgroundColor: const Color(0xff6949fe),
               ),
               onPressed: () {},
               child: const Text(
@@ -90,11 +90,11 @@ class IntroScreen extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                side: BorderSide(width: 2, color: Color(0xff6d4cfe)),
+                side: const BorderSide(width: 2, color: Color(0xff6d4cfe)),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(13.0)),
                 fixedSize: Size(width * 0.6, height * 0.06),
-                backgroundColor: Color(0xff22144c),
+                backgroundColor: const Color(0xff22144c),
               ),
               onPressed: () {},
               child: const Text(

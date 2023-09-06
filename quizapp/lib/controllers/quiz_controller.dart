@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/models/question_model.dart';
@@ -6,7 +8,7 @@ class QuizController extends GetxController {
   String name = '';
 
   /**
-   * 
+   * Question model that contain question with answer
    */
   final List<QuestionModel> _questionsList = [
     QuestionModel(
@@ -81,5 +83,153 @@ class QuizController extends GetxController {
     ),
   ];
 
-  int get countOfQuestion => _questionsList.length;
+  List<QuestionModel> get questionsList => [..._questionsList];
+
+  bool _isPressed = false;
+
+  //To check if the answer is pressed
+  bool get isPressed => _isPressed;
+
+  double _numberOfQuestion = 1;
+
+  double get numberOfQuestion => _numberOfQuestion;
+
+  int? _selectAnswer;
+
+  int? get selectAnswer => _selectAnswer;
+
+  int? _correctAnswer;
+
+  int _countOfCorrectAnswers = 0;
+
+  int get countOfCorrectAnswers => _countOfCorrectAnswers;
+
+  //map for check if the question has been answered
+  final Map<int, bool> _questionIsAnswerd = {};
+
+  //page view controller
+  late PageController pageController;
+
+  //timer
+  Timer? _timer;
+
+  final maxSec = 15;
+
+  final RxInt _sec = 15.obs;
+
+  RxInt get sec => _sec;
+
+  /**
+   *  called immediately after the widget is allocated memory
+   */
+  @override
+  void onInit() {
+    pageController = PageController(initialPage: 0);
+    resetAnswer();
+    super.onInit();
+  }
+
+  /**
+   * called just before the Controller is deleted from memory
+   */
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
+  }
+
+  /**
+   * get final score of the Quiz
+   */
+  double get scoreResult {
+    return _countOfCorrectAnswers * 100 / _questionsList.length;
+  }
+
+  /**
+   * method to check on the answer after click on any options
+   */
+  void checkAnswer(QuestionModel questionModel, int selectAnswer) {
+    _isPressed = true;
+
+    _selectAnswer = selectAnswer;
+    _correctAnswer = questionModel.answer;
+
+    if (_correctAnswer == _selectAnswer) {
+      _countOfCorrectAnswers++;
+    }
+    stopTimer();
+    _questionIsAnswerd.update(questionModel.id, (value) => true);
+    Future.delayed(const Duration(milliseconds: 500))
+        .then((value) => nextQuestion());
+    update();
+  }
+
+  /**
+   * this method check if the question has been answered
+   */
+  bool checkIsQuestionAnswered(int quesId) {
+    return _questionIsAnswerd.entries
+        .firstWhere((element) => element.key == quesId)
+        .value;
+  }
+
+  void nextQuestion() {
+    if (_timer != null || _timer!.isActive) {
+      stopTimer();
+    }
+
+    if (pageController.page == _questionsList.length - 1) {
+      // go to result screen//
+    } else {
+      _isPressed = false;
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 500), curve: Curves.linear);
+
+      startTimer();
+    }
+    _numberOfQuestion = pageController.page! + 2;
+    update();
+  }
+
+  /**
+   * this method called when you start again quiz
+   */
+  void resetAnswer() {
+    for (var element in _questionsList) {
+      _questionIsAnswerd.addAll({element.id: false});
+    }
+    update();
+  }
+
+  void startTimer() {
+    resetTimer();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_sec.value > 0) {
+        _sec.value--;
+      } else {
+        stopTimer();
+        nextQuestion();
+      }
+    });
+  }
+
+  void resetTimer() {
+    _sec.value = maxSec;
+  }
+
+  void stopTimer() {
+    _timer!.cancel();
+  }
+
+  /**
+   * this method called when start again quiz
+
+   */
+  void startAgain() {
+    _correctAnswer = null;
+    _countOfCorrectAnswers = 0;
+    resetAnswer();
+    _selectAnswer = null;
+    //go to welcome screen//
+  }
 }

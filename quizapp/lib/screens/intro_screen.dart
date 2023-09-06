@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quizapp/screens/welcome_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   IntroScreen({super.key});
@@ -79,7 +81,9 @@ class IntroScreen extends StatelessWidget {
                 fixedSize: Size(width * 0.6, height * 0.06),
                 backgroundColor: const Color(0xff6949fe),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(WelcomeScreen());
+              },
               child: const Text(
                 "Play Now",
                 style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600),

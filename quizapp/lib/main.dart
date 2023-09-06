@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quizapp/screens/intro_screen.dart';
 
 void main() {
@@ -10,7 +11,7 @@ class QuizApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "QuizApp",
       home: IntroScreen(),

@@ -1,0 +1,147 @@
+import 'package:flutter/material.dart';
+
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  static late double width;
+  static late double height;
+
+  final btnPrimaryGradient = const LinearGradient(
+    colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          width: width,
+          height: height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/backgrounds/welcome_background- 6.jpg"),
+            ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                width: width,
+                height: height * 0.6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(
+                      flex: 3,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: width * 0.04),
+                      child: const Row(
+                        children: [
+                          Text(
+                            "Let's Play Quiz,",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: width * 0.04),
+                      child: const Row(
+                        children: [
+                          Text(
+                            "Enter your name below ",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Spacer(
+                      flex: 2,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                      child: TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFF1F1147),
+                            hintText: "Full Name",
+                            labelText: "Enter you full name",
+                            labelStyle: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
+                            hintStyle: TextStyle(
+                              color: Colors.grey.withOpacity(0.8),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.7),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.7),
+                              ),
+                            )),
+                      ),
+                    ),
+                    Spacer(
+                      flex: 1,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: height * 0.11),
+                child: Container(
+                  width: width * 0.6,
+                  height: height * 0.06,
+                  child: GestureDetector(
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(0.75), // 15
+                        decoration: BoxDecoration(
+                          gradient: btnPrimaryGradient,
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Text(
+                          "Let's Start Quiz",
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              ?.copyWith(color: Colors.black),
+                        ),
+                      ),
+                      onTap: () {}),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

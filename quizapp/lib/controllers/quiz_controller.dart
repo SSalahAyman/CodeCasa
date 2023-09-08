@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/models/question_model.dart';
+import 'package:quizapp/screens/welcome_screen.dart';
 
 class QuizController extends GetxController {
   String name = '';
@@ -178,17 +179,17 @@ class QuizController extends GetxController {
       stopTimer();
     }
 
-    if (pageController.page == _questionsList.length - 1) {
-      // go to result screen//
-    } else {
-      _isPressed = false;
-      pageController.nextPage(
-          duration: const Duration(milliseconds: 500), curve: Curves.linear);
+    // if (pageController.page == _questionsList.length - 1) {
+    //   //------ go to result screen-----//
+    // } else {
+    //   _isPressed = false;
+    //   pageController.nextPage(
+    //       duration: const Duration(milliseconds: 500), curve: Curves.linear);
 
-      startTimer();
-    }
-    _numberOfQuestion = pageController.page! + 2;
-    update();
+    //   startTimer();
+    // }
+    // _numberOfQuestion = pageController.page! + 2;
+    // update();
   }
 
   /**
@@ -230,6 +231,6 @@ class QuizController extends GetxController {
     _countOfCorrectAnswers = 0;
     resetAnswer();
     _selectAnswer = null;
-    //go to welcome screen//
+    //--- navigate to welcome screen--//
   }
 }

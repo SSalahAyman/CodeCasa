@@ -10,6 +10,8 @@ class IntroScreen extends StatelessWidget {
   late double width;
   late double height;
 
+  static const routeName = '/intro_screen';
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;

@@ -18,7 +18,7 @@ class ProgressTimer extends StatelessWidget {
             CircularProgressIndicator(
               value: 1 - (controller.sec.value / 15),
               color: const Color(0xff37e9bb),
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.white,
               strokeWidth: 9,
             ),
             Center(

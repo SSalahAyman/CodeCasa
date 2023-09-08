@@ -84,6 +84,8 @@ class QuizController extends GetxController {
     ),
   ];
 
+  int get countOfQuestion => _questionsList.length;
+
   List<QuestionModel> get questionsList => [..._questionsList];
 
   bool _isPressed = false;

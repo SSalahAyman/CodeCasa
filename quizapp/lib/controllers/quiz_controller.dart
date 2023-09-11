@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/models/question_model.dart';
+import 'package:quizapp/screens/result_screen.dart';
 import 'package:quizapp/screens/welcome_screen.dart';
 
 class QuizController extends GetxController {
@@ -14,73 +15,48 @@ class QuizController extends GetxController {
   final List<QuestionModel> _questionsList = [
     QuestionModel(
       id: 1,
-      question: "Best Channel for Flutter ",
+      question:
+          "Who developed Flutter Framework and continues to maintain it today? ",
       answer: 2,
-      options: [
-        'Sec it',
-        'Sec it developer',
-        'sec it developers',
-        'mesh sec it '
-      ],
+      options: ['Facebook', 'Microsoft', 'Google ', 'Oracle'],
     ),
     QuestionModel(
       id: 2,
-      question: "Best State Mangment Ststem is ",
-      answer: 1,
-      options: ['BloC', 'GetX', 'Provider', 'riverPod'],
+      question: "When google release Flutter ",
+      answer: 2,
+      options: ['Jun 2017', 'Jun 2017', 'May 2017', 'May 2018'],
     ),
     QuestionModel(
       id: 3,
-      question: "Best Flutter dev",
-      answer: 2,
-      options: ['sherif', 'sherif ahmed', 'ahmed sherif', 'doc sherif'],
+      question:
+          "Which programming language is used to build Flutter applications?  ",
+      answer: 1,
+      options: ['Kotlin', 'Dart', 'Java', 'c++'],
     ),
     QuestionModel(
       id: 4,
-      question: "Sherif is",
-      answer: 1,
-      options: ['eng', 'Doc', 'eng/Doc', 'Doc/Eng'],
+      question: "How many types of widgets are there in Flutter?  ",
+      answer: 0,
+      options: ['2', '4', '3', '6'],
     ),
     QuestionModel(
       id: 5,
-      question: "Best Rapper in Egypt",
-      answer: 3,
-      options: ['Eljoker', 'Abyu', 'R3', 'All of the above'],
+      question:
+          "Access to a cloud database through Flutter is available through which service?",
+      answer: 1,
+      options: ['SQLite', 'Firebase Database', 'NOSQL', 'MYSQL'],
     ),
     QuestionModel(
       id: 6,
-      question: "Real Name of ahmed sherif",
-      answer: 2,
-      options: ['ahmed sherif', 'sherif', 'Haytham', 'NONE OF ABOVE'],
+      question: "which of these options works as state managment  ",
+      answer: 3,
+      options: ['BloC', 'GetX', 'Provider', 'All of the above'],
     ),
     QuestionModel(
       id: 7,
-      question: "Sherif love",
-      answer: 3,
-      options: ['Pharma', 'Micro', 'Medicnal', 'NONE OF ABOVE'],
-    ),
-    QuestionModel(
-      id: 8,
-      question: "hello",
-      answer: 3,
-      options: ['hello', 'hi', 'hola', 'Suiiiiiiiiiiii'],
-    ),
-    QuestionModel(
-      id: 9,
-      question: "Best Channel for Flutter ",
+      question: "A memory location that holds a single letter or number.",
       answer: 2,
-      options: [
-        'Sec it',
-        'Sec it developer',
-        'sec it developers',
-        'mesh sec it '
-      ],
-    ),
-    QuestionModel(
-      id: 10,
-      question: "Best State Mangment Ststem is ",
-      answer: 1,
-      options: ['BloC', 'GetX', 'Provider', 'riverPod'],
+      options: ['Double', 'Int', 'Char', 'Word'],
     ),
   ];
 
@@ -93,7 +69,7 @@ class QuizController extends GetxController {
   //To check if the answer is pressed
   bool get isPressed => _isPressed;
 
-  double _numberOfQuestion = 1;
+  late double _numberOfQuestion = 1;
 
   double get numberOfQuestion => _numberOfQuestion;
 
@@ -181,17 +157,49 @@ class QuizController extends GetxController {
       stopTimer();
     }
 
-    // if (pageController.page == _questionsList.length - 1) {
-    //   //------ go to result screen-----//
-    // } else {
-    //   _isPressed = false;
-    //   pageController.nextPage(
-    //       duration: const Duration(milliseconds: 500), curve: Curves.linear);
+    if (pageController.page == _questionsList.length - 1) {
+      Get.to(ResultScreen());
+      _numberOfQuestion = pageController.page! + 1;
+    } else {
+      _isPressed = false;
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 500), curve: Curves.linear);
+      _numberOfQuestion = pageController.page! + 2;
 
-    //   startTimer();
-    // }
-    // _numberOfQuestion = pageController.page! + 2;
-    // update();
+      startTimer();
+    }
+
+    update();
+  }
+
+  /**
+   * this method used to show right and wrong color in answer option
+   */
+  Color getColor(int answerIndex) {
+    if (_isPressed) {
+      if (answerIndex == _correctAnswer) {
+        return Colors.green.shade700;
+      } else if (answerIndex == _selectAnswer &&
+          _correctAnswer != _selectAnswer) {
+        return Colors.red.shade700;
+      }
+    }
+    return Colors.white;
+  }
+
+  /**
+   * this method used to show right and wrong icon in answer option
+   */
+  IconData getIcon(int answerIndex) {
+    if (_isPressed) {
+      if (answerIndex == _correctAnswer) {
+        return Icons.done;
+      } else if (answerIndex == _selectAnswer &&
+          _correctAnswer != _selectAnswer) {
+        return Icons.close;
+      }
+    }
+    return Icons.close;
   }
 
   /**
@@ -233,6 +241,6 @@ class QuizController extends GetxController {
     _countOfCorrectAnswers = 0;
     resetAnswer();
     _selectAnswer = null;
-    //--- navigate to welcome screen--//
+    Get.to(() => WelcomeScreen());
   }
 }

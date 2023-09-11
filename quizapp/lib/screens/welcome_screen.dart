@@ -111,7 +111,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               FocusScope.of(context).unfocus();
                               if (!_formkey.currentState!.validate()) return;
                               _formkey.currentState!.save();
-                              Get.to(QuizScreen());
+                              Get.to(() => QuizScreen());
                               Get.find<QuizController>().startTimer();
                             },
                             controller: _nameController,
@@ -147,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                     ),
-                    Spacer(
+                    const Spacer(
                       flex: 1,
                     ),
                   ],
@@ -165,13 +165,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         padding: const EdgeInsets.all(0.75), // 15
                         decoration: BoxDecoration(
                           gradient: btnPrimaryGradient,
-                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
                         ),
                         child: Text(
                           "Let's Start Quiz",
                           style: Theme.of(context)
                               .textTheme
-                              .button
+                              .labelLarge
                               ?.copyWith(color: Colors.black),
                         ),
                       ),
@@ -182,7 +183,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         FocusScope.of(context).unfocus();
                         if (!_formkey.currentState!.validate()) return;
                         _formkey.currentState!.save();
-                        Get.to(QuizScreen());
+                        Get.to(() => QuizScreen());
                         Get.find<QuizController>().startTimer();
                       }),
                 ),

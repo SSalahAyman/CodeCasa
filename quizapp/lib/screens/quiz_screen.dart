@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quizapp/components/quiz_screen/progress_timer.dart';
+import 'package:quizapp/components/quiz_screen/question_card.dart';
 import 'package:quizapp/controllers/quiz_controller.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -85,24 +86,23 @@ class QuizScreen extends StatelessWidget {
               Lottie.asset("assets/animated_icons/quiz_screen_icon.json",
                   width: width * 0.4),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                  child: Container(
-                    width: width,
-                    height: height * 0.5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: width * 0.04, top: height * 0.02),
-                      child: Text(
-                        "Flutter is an open-source UI software development kit created by salahaydadasdman ______",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              color: Color(0xFF101010),
-                            ),
-                      ),
-                    ),
-                  ))
+                padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                child: Container(
+                  width: width,
+                  height: height * 0.5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white),
+                  child: PageView.builder(
+                    itemCount: controller.questionsList.length,
+                    controller: controller.pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => QuestionCard(
+                        questionModel: controller.questionsList[index]),
+                  ),
+                ),
+              )
             ],
           ),
         ),

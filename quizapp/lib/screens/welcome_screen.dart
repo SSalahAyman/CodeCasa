@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("assets/backgrounds/welcome_background- 6.jpg"),
+              image: AssetImage("assets/backgrounds/welcome_screen.jpg"),
             ),
           ),
           child: Column(

@@ -21,7 +21,7 @@ class IntroScreen extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage("assets/backgrounds/intro_background.jpg"),
+            image: AssetImage("assets/backgrounds/intro_screen.jpg"),
           ),
         ),
         child: Column(

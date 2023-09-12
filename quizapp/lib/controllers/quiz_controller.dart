@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/models/question_model.dart';
-import 'package:quizapp/screens/result_screen.dart';
+import 'package:quizapp/screens/score_screen.dart';
 import 'package:quizapp/screens/welcome_screen.dart';
 
 class QuizController extends GetxController {
@@ -158,7 +158,7 @@ class QuizController extends GetxController {
     }
 
     if (pageController.page == _questionsList.length - 1) {
-      Get.to(ResultScreen());
+      Get.to(ScoreScreen());
       _numberOfQuestion = pageController.page! + 1;
     } else {
       _isPressed = false;

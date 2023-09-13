@@ -80,7 +80,7 @@ class IntroScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(13.0)),
-                fixedSize: Size(width * 0.6, height * 0.06),
+                fixedSize: Size(width * 0.65, height * 0.06),
                 backgroundColor: const Color(0xff6949fe),
               ),
               onPressed: () {
@@ -94,23 +94,6 @@ class IntroScreen extends StatelessWidget {
             SizedBox(
               height: height * 0.04,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                side: const BorderSide(width: 2, color: Color(0xff6d4cfe)),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(13.0)),
-                fixedSize: Size(width * 0.6, height * 0.06),
-                backgroundColor: const Color(0xff22144c),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "About",
-                style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff6d4cfe)),
-              ),
-            )
           ],
         ),
       ),

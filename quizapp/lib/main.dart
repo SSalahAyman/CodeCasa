@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizapp/screens/intro_screen.dart';
 
 void main() {
-  runApp(QuizApp());
+  runApp(const QuizApp());
 }
 
 class QuizApp extends StatelessWidget {

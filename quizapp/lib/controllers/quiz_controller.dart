@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/models/question_model.dart';
@@ -230,17 +229,5 @@ class QuizController extends GetxController {
 
   void stopTimer() {
     _timer!.cancel();
-  }
-
-  /**
-   * this method called when start again quiz
-
-   */
-  void startAgain() {
-    _correctAnswer = null;
-    _countOfCorrectAnswers = 0;
-    resetAnswer();
-    _selectAnswer = null;
-    Get.to(() => WelcomeScreen());
   }
 }

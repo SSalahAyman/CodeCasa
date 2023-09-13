@@ -20,6 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   final _nameController = TextEditingController();
 
+  late QuizController controller;
+
   final btnPrimaryGradient = const LinearGradient(
     colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
     begin: Alignment.centerLeft,

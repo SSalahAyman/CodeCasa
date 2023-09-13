@@ -143,7 +143,7 @@ class ScoreScreen extends StatelessWidget {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: width * 0.1,
+                                  fontSize: width * 0.09,
                                 ),
                               ),
                             ),
@@ -152,7 +152,10 @@ class ScoreScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: height * 0.08,
+                ),
               ],
             ),
           ),

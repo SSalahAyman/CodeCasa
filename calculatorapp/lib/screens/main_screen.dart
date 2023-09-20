@@ -1,3 +1,4 @@
+import 'package:calculatorapp/components/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,29 @@ class MainScreen extends StatelessWidget {
 
   static late double width;
   static late double height;
+
+  final List<dynamic> buttons = const [
+    "C",
+    "DEL",
+    "÷",
+    "%",
+    "7",
+    "8",
+    "9",
+    "x",
+    "4",
+    "5",
+    "6",
+    "-",
+    "1",
+    "2",
+    "3",
+    "+",
+    "^",
+    "0",
+    ".",
+    "=",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +90,7 @@ class MainScreen extends StatelessWidget {
              */
             Container(
               width: width,
-              height: height * 0.35,
+              height: height * 0.3,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -103,6 +127,32 @@ class MainScreen extends StatelessWidget {
                 ],
               ),
             ),
+
+            /**
+             * Area for Gridview opertions & numbers
+             */
+            Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.02, vertical: height * 0.01),
+              width: width,
+              height: height * 0.6,
+              child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: width * 0.04,
+                    crossAxisSpacing: height * 0.03,
+                    crossAxisCount: 4),
+                itemCount: buttons.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return MyButton(
+                    textColor: Color(0xffA66CFF),
+                    backgroundColor: Color(0xff1f1f27),
+                    textString: buttons[index],
+                    onTap: () {},
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

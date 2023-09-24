@@ -1,16 +1,29 @@
 import 'package:calculatorapp/components/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   static late double width;
   static late double height;
 
+  var question = "";
+  var answer = "";
+
   final List<dynamic> buttons = const [
-    "C",
-    "DEL",
+    "AC",
+    Icon(
+      Icons.backspace,
+      color: Color(0xffA66CFF),
+      size: 27,
+    ),
     "÷",
     "%",
     "7",
@@ -98,13 +111,13 @@ class MainScreen extends StatelessWidget {
                     padding: EdgeInsets.only(right: width * 0.04),
                     child: Container(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        "5+10",
+                      child: (Text(
+                        question,
                         style: TextStyle(
                             color: Color(0xffA0A1AC),
                             fontSize: width * 0.07,
                             fontFamily: "RobotoMono"),
-                      ),
+                      )),
                     ),
                   ),
                   SizedBox(
@@ -114,14 +127,14 @@ class MainScreen extends StatelessWidget {
                     padding: EdgeInsets.only(right: width * 0.04),
                     child: Container(
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        "15",
+                      child: (Text(
+                        answer,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: width * 0.1,
                           // fontFamily: "RobotoMono",
                         ),
-                      ),
+                      )),
                     ),
                   ),
                 ],
@@ -137,19 +150,81 @@ class MainScreen extends StatelessWidget {
               width: width,
               height: height * 0.6,
               child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     mainAxisSpacing: width * 0.04,
                     crossAxisSpacing: height * 0.03,
                     crossAxisCount: 4),
                 itemCount: buttons.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return MyButton(
-                    textColor: Color(0xffA66CFF),
-                    backgroundColor: Color(0xff1f1f27),
-                    textString: buttons[index],
-                    onTap: () {},
-                  );
+                  /**
+                   * clear button
+                   */
+                  if (index == 0) {
+                    return MyButton(
+                        textColor: Color(0xffA66CFF),
+                        backgroundColor: Color(0xff1f1f27),
+                        textString: buttons[index],
+                        item: "text",
+                        onTap: () {
+                          setState(() {
+                            question = '';
+                            answer = '';
+                          });
+                        });
+                  }
+
+                  /**
+                   * delete button
+                   */
+                  else if (index == 1) {
+                    return MyButton(
+                      textColor: Color(0xffA66CFF),
+                      backgroundColor: Color(0xff1f1f27),
+                      onTap: () {
+                        setState(() {
+                          question = question.substring(0, question.length - 1);
+                        });
+                      },
+                      item: "icon",
+                      icon: buttons[index],
+                    );
+                  }
+
+                  /**
+                   * equal button
+                   */
+                  else if (index == 19) {
+                    return MyButton(
+                        textColor: Color(0xffA66CFF),
+                        backgroundColor: Color(0xff1f1f27),
+                        textString: buttons[index],
+                        onTap: () {
+                          setState(() {
+                            equal();
+                          });
+                        },
+                        item: "text");
+                  }
+
+                  /**
+                   * numbers & operators
+                   */
+                  else {
+                    return MyButton(
+                      textColor: isoperator(buttons[index])
+                          ? Color(0xffA66CFF)
+                          : Colors.white,
+                      backgroundColor: Color(0xff1f1f27),
+                      onTap: () {
+                        setState(() {
+                          question = question + buttons[index];
+                        });
+                      },
+                      item: 'text',
+                      textString: buttons[index],
+                    );
+                  }
                 },
               ),
             )
@@ -157,5 +232,35 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /**
+   * function to check item in button list is operator or not 
+   */
+  bool isoperator(String x) {
+    if (x == "%" ||
+        x == "÷" ||
+        x == "x" ||
+        x == "-" ||
+        x == "+" ||
+        x == "=" ||
+        x == "^") {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * function that perform all opertions on question
+   */
+  void equal() {
+    String userquestion = question;
+    userquestion = userquestion.replaceAll("x", "*");
+    Parser p = Parser();
+    Expression exp = p.parse(userquestion);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    answer = eval.toString();
+    print('Expression: $exp');
   }
 }

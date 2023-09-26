@@ -37,6 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.6
   get: ^4.6.6
   math_expressions: ^2.4.0
+  google_fonts: ^6.1.0
+  get_storage: ^2.1.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -76,10 +80,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: RobotoMono
-      fonts:
-        - asset: assets/fonts/RobotoMono-Regular.ttf
+  # fonts:
+  #  - family: RobotoMono
+  #    fonts:
+  #      - asset: assets/fonts/RobotoMono-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
